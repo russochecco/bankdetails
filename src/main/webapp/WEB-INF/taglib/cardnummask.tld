@@ -8,7 +8,7 @@
     <short-name>Card number mask JSP tag</short-name>
     <tag>
         <name>cardnummask</name>
-        <tag-class>org.frusso.bankdetails.web.customtag.CardNumberMaskTag</tag-class>
+        <tag-class>org.frusso.bankdetails.customtag.CardNumberMaskTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>value</name>

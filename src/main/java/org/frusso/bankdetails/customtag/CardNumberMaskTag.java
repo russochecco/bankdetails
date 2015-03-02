@@ -1,4 +1,4 @@
-package org.frusso.bankdetails.web.customtag;
+package org.frusso.bankdetails.customtag;
 
 import java.io.IOException;
 import java.io.StringWriter;

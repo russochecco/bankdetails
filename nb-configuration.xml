@@ -17,9 +17,14 @@ Any value defined here will override the pom.xml file value but is only applicab
     </properties>
     <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
         <config-files>
-            <config-file>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config-file>
             <config-file>src/main/resources/datasource-tx-jpa.xml</config-file>
             <config-file>src/main/webapp/WEB-INF/spring/root-context.xml</config-file>
+            <config-file>src/main/resources/http-invoker-context.xml</config-file>
+            <config-file>src/main/resources/restful-context.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/spring/http-invoker-context.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/spring/restful-context.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/spring/servlet-context.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/spring/web-security.xml</config-file>
         </config-files>
         <config-file-groups/>
     </spring-data>
