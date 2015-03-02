@@ -7,7 +7,6 @@ http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
-    <!-- Stateless RESTful service using Basic authentication -->
     <http pattern="/restful/**" create-session="stateless">
         <intercept-url pattern='/**' access='ROLE_REMOTE' />
         <http-basic />

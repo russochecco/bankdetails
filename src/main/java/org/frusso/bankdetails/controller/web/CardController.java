@@ -1,4 +1,4 @@
-package org.frusso.bankdetails.web.controller;
+package org.frusso.bankdetails.controller.web;
 
 import com.google.common.io.CharStreams;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package org.frusso.bankdetails.web.controller.restful;
+package org.frusso.bankdetails.controller.restful;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
