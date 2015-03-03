@@ -39,25 +39,71 @@ public class CardController {
         return "redirect:list";
     }
 
-    @RequestMapping(params = "upload", method = RequestMethod.POST)
-    public String file() {
-        return "upload";
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public String listPostHandler(@RequestParam String action) {
+        String view = null;
+        if (action.equals("manually")) {
+            view = "redirect:manually";
+        } else if (action.equals("upload")) {
+            view = "redirect:upload";
+        }
+        return view;
     }
 
-    @RequestMapping(params = "manually", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String uploadPostHandler(@RequestParam String action, @RequestParam(value = "uploadControl") MultipartFile file) {
+        String view = null;
+        if (action.equals("back")) {
+            view = "redirect:list";
+        } else if (action.equals("upload")) {
+            if (file != null) {
+                try {
+                    boolean redirect = false;
+                    String content = CharStreams.toString(new InputStreamReader(file.getInputStream(), "UTF-8"));
+                    String[] items = content.trim().split(",");
+                    for (int i = 0; i < items.length / 3; i++) {
+                        int offset = i * 3;
+                        List<String> data = new ArrayList<String>();
+                        for (int j = offset; j < offset + 3; j++) {
+                            data.add(items[j]);
+                        }
+                        if (data.size() > 0) {
+                            String bankName = data.get(0).trim();
+                            String cardNumber = data.get(1).trim();
+                            Date dateExpire = dateFormat.parse(data.get(2).trim());
+                            Card card = new Card(bankName, cardNumber, dateExpire);
+                            LOGGER.info("Insert card: " + card);
+                            cardService.save(card);
+                            if (!redirect) {
+                                redirect = true;
+                            }
+                        }
+                    }
+                    if (redirect) {
+                        view = "redirect:list";
+                    }
+                } catch (Exception ex) {
+                    LOGGER.error(ex);
+                }
+            }
+        }
+        return view;
+    }
+
+    @RequestMapping(value = "/manually", method = RequestMethod.GET)
     public String manually(Model uiModel) {
         LOGGER.info("Add a new card");
         uiModel.addAttribute("card", new Card());
         return "manually";
     }
 
-    @RequestMapping(params = "back", method = RequestMethod.POST)
-    public String back() {
-        return "redirect:list";
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String upload() {
+        return "upload";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model uiModel) {
+    public String listGetHandler(Model uiModel) {
         LOGGER.info("Listing cards");
         List<Card> cards = cardService.findAll();
         uiModel.addAttribute("cards", cards);
@@ -65,47 +111,23 @@ public class CardController {
         return "list";
     }
 
-    @RequestMapping(params = "uploadSubmit", method = RequestMethod.POST)
-    public String saveCSV(@RequestParam(value = "uploadControl") MultipartFile file) {
-        if (file != null) {
-            try {
-                String content = CharStreams.toString(new InputStreamReader(file.getInputStream(), "UTF-8"));
-                String[] items = content.trim().split(",");
-                for (int i = 0; i < items.length / 3; i++) {
-                    int offset = i * 3;
-                    List<String> data = new ArrayList<String>();
-                    for (int j = offset; j < offset + 3; j++) {
-                        data.add(items[j]);
-                    }
-                    if (data.size() > 0) {
-                        String bankName = data.get(0).trim();
-                        String cardNumber = data.get(1).trim();
-                        Date dateExpire = dateFormat.parse(data.get(2).trim());
-                        Card card = new Card(bankName, cardNumber, dateExpire);
-                        LOGGER.info("Insert card: " + card);
-                        cardService.save(card);
-                    }
-                }
-            } catch (Exception ex) {
-                LOGGER.error(ex);
+    @RequestMapping(value = "/manually", method = RequestMethod.POST)
+    public String manuallyPostHandler(@RequestParam String action, @Valid Card card, BindingResult bindingResult) {
+        String view = null;
+        if (action.equals("back")) {
+            view = "redirect:list";
+        } else if (action.equals("save")) {
+            if (!bindingResult.hasErrors()) {
+                LOGGER.info("Insert card: " + card);
+                cardService.save(card);
+                view = "redirect:list";
             }
         }
-        return "redirect:/list";
-    }
-
-    @RequestMapping(params = "save", method = RequestMethod.POST)
-    public String save(@Valid Card card, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-
-            return "manually";
-        }
-        LOGGER.info("Insert card: " + card);
-        cardService.save(card);
-        return "redirect:/list";
+        return view;
     }
 
     /**
-     * register property editors
+     * Register property editors
      */
     @InitBinder
     public void initBinder(WebDataBinder binder) {

@@ -12,8 +12,6 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.framework.version>3.1.0.RELEASE</spring.framework.version>
-        <jetty.version>6.1.14</jetty.version>
-        <org.slf4j-version>1.6.6</org.slf4j-version>
         <java.version>1.7</java.version>
     </properties>
     
@@ -219,20 +217,8 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${org.slf4j-version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${org.slf4j-version}</version>
-            <scope>runtime</scope>
+            <version>1.7.10</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -257,7 +243,7 @@
                 </exclusion>
             </exclusions>
             <scope>runtime</scope>
-        </dependency>                                                  
+        </dependency>                                                                                                                                 
     </dependencies>
 
     <build>
@@ -315,7 +301,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>${jetty.version}</version>
+                <version>6.1.14</version>
                 <configuration>
                     <scanIntervalSeconds>240</scanIntervalSeconds>
                     <connectors>

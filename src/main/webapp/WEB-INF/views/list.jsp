@@ -13,7 +13,7 @@
     </head>
     <body>
         <h2>Listing of all cards</h2>
-        <sf:form method="POST" action="/bankdetails/action.do">
+        <sf:form method="POST">
             <c:if test="${not empty cards}">
                 <table cellspacing="6" cellspadding="4" style="text-align:left;">
                     <thead>
@@ -39,8 +39,8 @@
                 </table>
             </c:if>
             <br />
-            <input type="submit" name="manually" value="manually"/>
-            <input type="submit" name="upload" value="upload" />
+            <input type="submit"  name="action" value="manually"/>
+            <input type="submit" name="action" value="upload" />
         </sf:form>
     </body>
 </html>

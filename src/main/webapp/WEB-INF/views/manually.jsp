@@ -45,8 +45,8 @@
                     <tr>
                         <td>
                             <br />
-                            <input type="submit" name="back" value="back"/>
-                            <input type="submit" name="save" value="save"/>
+                            <input type="submit" name="action" value="back"/>
+                            <input type="submit" name="action" value="save"/>
                         </td>
                     </tr>
                 </table>

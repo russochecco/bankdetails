@@ -15,13 +15,13 @@
                 <tr>
                     <td>
                         <input type="file" name="uploadControl" value="uploadControl" enctype="multipart/form-data" />
-                        <input type="submit" name="uploadSubmit" value="upload"/>
+                        <input type="submit" name="action" value="upload"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <br />
-                        <input type="submit" name="back" value="back"/>
+                        <input type="submit" name="action" value="back"/>
                     </td>
                 </tr>
             </table>
